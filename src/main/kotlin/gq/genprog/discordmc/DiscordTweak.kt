@@ -3,9 +3,7 @@ package gq.genprog.discordmc
 import gq.genprog.discordmc.discord.DiscordClient
 import gq.genprog.discordmc.discord.DiscordConfig
 import gq.genprog.simpletweaker.config.JsonConfigLoader
-import gq.genprog.simpletweaker.events.EventHandler
-import gq.genprog.simpletweaker.events.PlayerChatEvent
-import gq.genprog.simpletweaker.events.TweakRunEvent
+import gq.genprog.simpletweaker.events.*
 import gq.genprog.simpletweaker.tweaks.ITweak
 import gq.genprog.simpletweaker.tweaks.TweakStage
 
@@ -39,5 +37,13 @@ class DiscordTweak: ITweak {
 
     @EventHandler fun onPlayerChat(event: PlayerChatEvent) {
         this.client?.sendMessage(event.player, event.message)
+    }
+
+    @EventHandler fun onPlayerJoin(event: PlayerJoinEvent) {
+        this.client?.sendMessage(event.player, "*joined the server*")
+    }
+
+    @EventHandler fun onPlayerLeave(event: PlayerLeaveEvent) {
+        this.client?.sendMessage(event.player, "*left the server*")
     }
 }

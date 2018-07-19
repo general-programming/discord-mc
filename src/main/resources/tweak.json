@@ -1,0 +1,7 @@
+{
+  "id": "gq.genprog.discord-mc",
+  "name": "genprog DiscordMC",
+  "tweaks": [
+    "gq.genprog.discordmc.DiscordTweak"
+  ]
+}

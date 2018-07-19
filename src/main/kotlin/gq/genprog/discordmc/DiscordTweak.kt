@@ -49,7 +49,7 @@ class DiscordTweak: ITweak {
 
     @EventHandler fun onServerStopping(event: ServerStoppingEvent) {
         this.client?.apply {
-            sendSystemMessage(config.messages.serverStopped)
+            sendSystemBlocking(config.messages.serverStopped)
         }
     }
 }

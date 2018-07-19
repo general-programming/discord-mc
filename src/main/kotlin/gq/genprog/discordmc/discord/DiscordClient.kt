@@ -16,7 +16,7 @@ class DiscordClient(val config: DiscordConfig) {
     val jda: JDA = JDABuilder(AccountType.BOT).apply {
         setToken(config.token)
         setAutoReconnect(true)
-        addEventListener(DiscordEventListener(config))
+        addEventListener(DiscordEventListener(this@DiscordClient))
     }.buildAsync()
 
     val isWebhookEnabled get() = config.webhook?.enabled ?: false
@@ -52,6 +52,12 @@ class DiscordClient(val config: DiscordConfig) {
     fun sendSystemMessage(text: String) {
         jda.getTextChannelById(config.channelId)?.apply {
             sendMessage(text).queue()
+        }
+    }
+
+    fun sendSystemBlocking(text: String) {
+        jda.getTextChannelById(config.channelId)?.apply {
+            sendMessage(text).complete()
         }
     }
 }

@@ -32,9 +32,7 @@ class DiscordTweak: ITweak {
             return
         }
 
-        this.client = DiscordClient(config).apply {
-            sendSystemMessage(config.messages.serverStarted)
-        }
+        this.client = DiscordClient(config)
     }
 
     @EventHandler fun onPlayerChat(event: PlayerChatEvent) {

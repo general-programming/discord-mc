@@ -16,7 +16,7 @@ class DiscordClient(val config: DiscordConfig) {
     val jda: JDA = JDABuilder(AccountType.BOT).apply {
         setToken(config.token)
         setAutoReconnect(true)
-        addEventListener(DiscordEventListener())
+        addEventListener(DiscordEventListener(config))
     }.buildAsync()
 
     val isWebhookEnabled get() = config.webhook?.enabled ?: false

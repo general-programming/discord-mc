@@ -9,13 +9,13 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter
  * Written by @offbeatwitch.
  * Licensed under MIT.
  */
-class DiscordEventListener: ListenerAdapter() {
+class DiscordEventListener(val config: DiscordConfig): ListenerAdapter() {
     override fun onReady(event: ReadyEvent) {
         println("Discord connected")
     }
 
     override fun onMessageReceived(event: MessageReceivedEvent) {
-        if (event.author.isBot or event.isWebhookMessage)
+        if (event.author.isBot or event.isWebhookMessage or (event.channel.idLong != config.channelId))
             return
 
         val text = "[\u00A79D\u00A7r]<${event.author.name}> ${event.message.contentStripped}"

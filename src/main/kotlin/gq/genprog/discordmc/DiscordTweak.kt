@@ -1,5 +1,7 @@
 package gq.genprog.discordmc
 
+import gq.genprog.discordmc.commands.DiscordCommandAccept
+import gq.genprog.discordmc.commands.DiscordCommandLink
 import gq.genprog.discordmc.discord.DiscordClient
 import gq.genprog.discordmc.discord.DiscordConfig
 import gq.genprog.simpletweaker.config.JsonConfigLoader
@@ -32,7 +34,12 @@ class DiscordTweak: ITweak {
             return
         }
 
-        this.client = DiscordClient(config)
+        this.client = DiscordClient(config, ev.configDir)
+
+        this.client?.apply {
+            addCommand(DiscordCommandLink())
+            addCommand(DiscordCommandAccept())
+        }
     }
 
     @EventHandler fun onPlayerChat(event: PlayerChatEvent) {
@@ -48,8 +55,8 @@ class DiscordTweak: ITweak {
     }
 
     @EventHandler fun onServerStopping(event: ServerStoppingEvent) {
-        this.client?.apply {
-            sendSystemBlocking(config.messages.serverStopped)
-        }
+//        this.client?.apply {
+//            sendSystemBlocking(config.messages.serverStopped)
+//        }
     }
 }

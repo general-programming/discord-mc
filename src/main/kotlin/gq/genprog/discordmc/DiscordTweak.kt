@@ -32,7 +32,9 @@ class DiscordTweak: ITweak {
             return
         }
 
-        this.client = DiscordClient(config)
+        this.client = DiscordClient(config).apply {
+            sendSystemMessage(config.messages.serverStarted)
+        }
     }
 
     @EventHandler fun onPlayerChat(event: PlayerChatEvent) {
@@ -45,5 +47,11 @@ class DiscordTweak: ITweak {
 
     @EventHandler fun onPlayerLeave(event: PlayerLeaveEvent) {
         this.client?.sendMessage(event.player, "*left the server*")
+    }
+
+    @EventHandler fun onServerStopping(event: ServerStoppingEvent) {
+        this.client?.apply {
+            sendSystemMessage(config.messages.serverStopped)
+        }
     }
 }

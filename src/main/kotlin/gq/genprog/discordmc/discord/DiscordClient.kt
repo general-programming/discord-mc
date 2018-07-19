@@ -48,4 +48,10 @@ class DiscordClient(val config: DiscordConfig) {
             this.sendNormalMessage(author, text)
         }
     }
+
+    fun sendSystemMessage(text: String) {
+        jda.getTextChannelById(config.channelId)?.apply {
+            sendMessage(text).queue()
+        }
+    }
 }

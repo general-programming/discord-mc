@@ -18,7 +18,14 @@ class DiscordEventListener(val config: DiscordConfig): ListenerAdapter() {
         if (event.author.isBot or event.isWebhookMessage or (event.channel.idLong != config.channelId))
             return
 
-        val text = "[\u00A79D\u00A7r]<${event.author.name}> ${event.message.contentStripped}"
+        val content = stripDangerMentions(event.message.contentStripped)
+        val text = "[\u00A79D\u00A7r]<${event.author.name}> $content"
         Helper.getMinecraftServer().broadcast(text)
+    }
+
+    fun stripDangerMentions(text: String): String {
+        return text
+                .replace("@everyone", "@\u200beveryone")
+                .replace("@here", "@\u200bhere")
     }
 }

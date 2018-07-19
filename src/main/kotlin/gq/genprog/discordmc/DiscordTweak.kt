@@ -43,7 +43,9 @@ class DiscordTweak: ITweak {
     }
 
     @EventHandler fun onPlayerChat(event: PlayerChatEvent) {
-        this.client?.sendMessage(event.player, event.message)
+        val content = stripDangerMentions(event.message)
+
+        this.client?.sendMessage(event.player, content)
     }
 
     @EventHandler fun onPlayerJoin(event: PlayerJoinEvent) {
@@ -58,5 +60,11 @@ class DiscordTweak: ITweak {
 //        this.client?.apply {
 //            sendSystemBlocking(config.messages.serverStopped)
 //        }
+    }
+
+    fun stripDangerMentions(text: String): String {
+        return text
+                .replace("@everyone", "@\u200beveryone")
+                .replace("@here", "@\u200bhere")
     }
 }

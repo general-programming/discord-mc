@@ -27,7 +27,7 @@ class DiscordCommandLink: ICommand {
 
             this.sendMessage("\u00A76${message.author.fullName()}\u00A7r" +
                     " has requested to link their Discord account to you.\n" +
-                    "Use the command /discord-accept to accept.")
+                    "Use the command \u00A76/discord-accept\u00A7r to accept.")
             message.channel.sendMessage("${message.author.asMention} Sent you instructions in Minecraft.").queue()
             return
         }

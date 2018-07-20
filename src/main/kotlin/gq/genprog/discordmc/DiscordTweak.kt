@@ -1,6 +1,7 @@
 package gq.genprog.discordmc
 
 import gq.genprog.discordmc.commands.DiscordCommandLink
+import gq.genprog.discordmc.commands.DiscordCommandList
 import gq.genprog.discordmc.commands.McCommandAccept
 import gq.genprog.discordmc.discord.DiscordClient
 import gq.genprog.discordmc.discord.DiscordConfig
@@ -38,6 +39,7 @@ class DiscordTweak: ITweak {
 
         this.client?.apply {
             addCommand(DiscordCommandLink())
+            addCommand(DiscordCommandList())
 
             ev.registerCommand(McCommandAccept(this))
         }

@@ -24,7 +24,7 @@ class LinkHelper {
     }
 
     @Transient var saveFile: File? = null
-    @Transient val linkCodes: HashMap<Int, UUID> = hashMapOf()
+    @Transient val linkCodes: HashMap<UUID, Long> = hashMapOf()
     val links: HashMap<UUID, Long> = hashMapOf()
 
     fun setLink(mc: UUID, discord: Long) {
@@ -35,14 +35,11 @@ class LinkHelper {
         return links[mc]
     }
 
-    fun generateLinkCode(mc: UUID): Int {
-        val code = Random().nextInt(8999) + 1000
-
-        linkCodes[code] = mc
-        return code
+    fun stashPotentialLink(mc: UUID, discordId: Long) {
+        linkCodes[mc] = discordId
     }
 
-    fun saveToFile() {
+    @Synchronized fun saveToFile() {
         saveFile?.also {
             loader.writeConfig(it, this)
         }

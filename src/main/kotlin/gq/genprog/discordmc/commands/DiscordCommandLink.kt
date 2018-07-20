@@ -1,6 +1,7 @@
 package gq.genprog.discordmc.commands
 
 import gq.genprog.discordmc.discord.DiscordClient
+import gq.genprog.discordmc.discord.fullName
 import gq.genprog.simpletweaker.Helper
 import net.dv8tion.jda.core.entities.Message
 
@@ -22,11 +23,12 @@ class DiscordCommandLink: ICommand {
         val username = args[0]
 
         Helper.getMinecraftServer().getPlayer(username)?.apply {
-            val code = client.links.generateLinkCode(this.uid)
+            client.links.stashPotentialLink(this.uid, message.author.idLong)
 
-            this.sendMessage("Your Discord link code is \u00A76$code\u00A7r.\n" +
-                    "Use 'mc%accept $code' in Discord DMs to confirm the link.")
-            message.channel.sendMessage("${message.author.asMention} Sent you a link code in Minecraft.").queue()
+            this.sendMessage("\u00A76${message.author.fullName()}\u00A7r" +
+                    " has requested to link their Discord account to you.\n" +
+                    "Use the command /discord-accept to accept.")
+            message.channel.sendMessage("${message.author.asMention} Sent you instructions in Minecraft.").queue()
             return
         }
 
